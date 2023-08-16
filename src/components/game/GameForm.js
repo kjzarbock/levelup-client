@@ -3,90 +3,90 @@ import { useNavigate } from 'react-router-dom';
 import { createGame, getGameTypes } from '../../managers/GameManager.js';
 
 export const GameForm = () => {
-  const navigate = useNavigate();
-  const [gameTypes, setGameTypes] = useState([]);
+    const navigate = useNavigate();
+    const [gameTypes, setGameTypes] = useState([]);
 
-  const [currentGame, setCurrentGame] = useState({
+const [currentGame, setCurrentGame] = useState({
     skillLevel: 0,
     numberOfPlayers: 0,
     title: "",
     maker: "",
     gameTypeId: 0
-  });
+});
 
-  useEffect(() => {
+useEffect(() => {
     getGameTypes()
-      .then(data => setGameTypes(data));
-  }, []);
+    .then(data => setGameTypes(data));
+}, []);
 
-  const changeGameState = (event) => {
-    const { name, value } = event.target;
+const changeGameState = (event) => {
+const { name, value } = event.target;
     setCurrentGame((prevState) => ({
-      ...prevState,
-      [name]: value,
+    ...prevState,
+    [name]: value,
     }));
-  };
+};
 
-  return (
+return (
     <form className="gameForm">
-      <h2 className="gameForm__title">Register New Game</h2>
-      <fieldset>
+    <h2 className="gameForm__title">Register New Game</h2>
+    <fieldset>
         <div className="form-group">
-          <label htmlFor="title">Title: </label>
-          <input
+        <label htmlFor="title">Title: </label>
+        <input
             type="text"
             name="title"
             required autoFocus
             className="form-control"
             value={currentGame.title}
             onChange={changeGameState}
-          />
+        />
         </div>
-      </fieldset>
-      <fieldset>
+    </fieldset>
+    <fieldset>
         <div className="form-group">
-          <label htmlFor="maker">Maker: </label>
-          <input
+        <label htmlFor="maker">Maker: </label>
+        <input
             type="text"
             name="maker"
             required autoFocus
             className="form-control"
             value={currentGame.maker}
             onChange={changeGameState}
-          />
+        />
         </div>
-      </fieldset>
-      <fieldset>
+    </fieldset>
+    <fieldset>
         <div className="form-group">
-          <label htmlFor="numberOfPlayers">Number of Players: </label>
-          <input
+        <label htmlFor="numberOfPlayers">Number of Players: </label>
+        <input
             type="number"
             name="numberOfPlayers"
             required autoFocus
             className="form-control"
             value={currentGame.numberOfPlayers}
             onChange={changeGameState}
-          />
+        />
         </div>
-      </fieldset>
-      <fieldset>
+    </fieldset>
+    <fieldset>
         <div className="form-group">
-          <label htmlFor="skillLevel">Skill Level: </label>
-          <select
+        <label htmlFor="skillLevel">Skill Level: </label>
+        <select
             name="skillLevel"
             required
             className="form-control"
             value={currentGame.skillLevel}
             onChange={changeGameState}
-          >
+        >
             <option value="">Select Skill Level</option>
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
-          </select>
+        </select>
         </div>
-      </fieldset>
-      <fieldset>
+    </fieldset>
+    <fieldset>
                 <div className="form-group">
                     <label htmlFor="gameTypeId">Game Type: </label>
                     <select
@@ -106,26 +106,26 @@ export const GameForm = () => {
                     </select>
                 </div>
         </fieldset>
-      <button
+    <button
         type="submit"
         onClick={(evt) => {
-          evt.preventDefault();
+        evt.preventDefault();
 
-          const game = {
+        const game = {
             title: currentGame.title,
             maker: currentGame.maker,
             number_of_players: parseInt(currentGame.numberOfPlayers),
             skill_level: currentGame.skillLevel,
             game_type: parseInt(currentGame.gameTypeId),
-          };
+        };
 
-          createGame(game)
+        createGame(game)
             .then(() => navigate("/games"));
         }}
         className="btn btn-primary"
-      >
+    >
         Create
-      </button>
+    </button>
     </form>
-  );
+);
 };
