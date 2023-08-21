@@ -27,3 +27,28 @@ export const getGames = () => {
     })
         .then(response => response.json())
 }
+
+export const getEventById = (eventId) => {
+    return fetch(`http://localhost:8000/events/${eventId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error fetching game with ID ${eventId}`);
+        }
+        return response.json();
+    });
+};
+
+export const updateEvent = (eventId, updatedEvent) => {
+    return fetch(`http://localhost:8000/events/${eventId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`
+        },
+        body: JSON.stringify(updatedEvent)
+    })
+}
