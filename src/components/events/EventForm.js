@@ -15,7 +15,6 @@ export const EventForm = () => {
     })
 
     useEffect(() => {
-    
     getGames().then((data) => { setGames(data) })
     }, [])
 
@@ -64,8 +63,7 @@ export const EventForm = () => {
             required autoFocus
             className="form-control"
             value={currentEvent.game}
-            onChange={changeEventState}
-        >
+            onChange={changeEventState}>
             <option value="">Select Game</option>
             {games.map((item) => (
             <option key={item.id} value={item.id}>
